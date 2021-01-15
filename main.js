@@ -17,14 +17,17 @@ function MyArrayProto() {
   };
 
   this.unshift = function unshift(...args) {
-    this.reverse().push(...args);
+    this.reverse().push(...args); // 
     this.reverse();
     return this.length;
   };
 
   this.shift = function shift() {
-    const firstElem = this[this.length - this.length + 1];
-    delete this[this.length - this.length + 1];
+    if(this.length <= 0){
+      return;
+    }
+    const firstElem = this[0];
+    delete this[0];
     this.length--;
     return firstElem;
   };
@@ -77,3 +80,7 @@ MyArray.isMyArray = function (obj) {
 };
 
 MyArray.prototype = new MyArrayProto();
+
+let arr1 = new MyArray();
+arr1.push(1,2,3,4);
+arr1.shift();
