@@ -58,13 +58,13 @@ function MyArrayProto() {
     }
   };
 
-  this.map = function map(cb){ 
+  this.map = function map(cb) {
     const res = new MyArray();
     for (let i = 0; i < this.length; i++) {
       res.push(cb(this[i], i, this));
     }
     return res;
-  }
+  };
 }
 
 function MyArray() {
@@ -73,6 +73,10 @@ function MyArray() {
     this.push(arguments[i]);
   }
 }
+
+MyArray.isMyArray = function (obj) {
+  return obj instanceof MyArray;
+};
 
 MyArray.prototype = new MyArrayProto();
 
