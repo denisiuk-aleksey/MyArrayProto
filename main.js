@@ -28,6 +28,7 @@ function MyArrayProto() {
   this.shift = function shift() {
     const firstElem = this[this.length - this.length + 1];
     delete this[this.length - this.length + 1];
+    this.length--;
     return firstElem;
   };
 
