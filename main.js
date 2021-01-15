@@ -23,8 +23,6 @@ function MyArrayProto() {
       ++this.length;
     }
     return this.length;
-    // this.reverse().push(arguments);
-    // this.reverse();                                поинтересней решение)))
   };
 
   this.shift = function shift() {
@@ -33,41 +31,44 @@ function MyArrayProto() {
     return firstElem;
   };
 
-  this.concat = function concat() {
-    let newArray = [];
+  this.concat = function concat(secondArr) {
+    let newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
       newArray.push(this[i]);
     }
-    for (let i = 0; i < arguments.length; i++) {
-      newArray.push(arguments[i]);
+    for (let i = 0; i < secondArr.length; i++) {
+      newArray.push(secondArr[i]);
     }
     return newArray;
   };
 
   this.reverse = function reverse() {
-    let newArray = [];
-    let index;
-    for (i = this.length; i > 0; i--) {
-      index = this.length - i;
-      newArray[i] = this[index];
+    let newArray = new MyArray();
+    for (let i = 0; i < this.length; i++) {
+      newArray.push(this[i]);
     }
-    return newArray; //можно ещё цикл чтобы перезаписывать в старый массив, но так очень медленно будет)
+    for (let i = 0; i < this.length; i++) {
+      this[i] = newArray.pop;
+    }
   };
 
-  this.forEach = function forEach(cb){
+  this.forEach = function forEach(cb) {
     for (let i = 0; i < this.length; i++) {
       cb(this[i], i, this);
     }
-  }
+  };
 
-  //map() не осилил
+  this.map = function map(cb){ 
+    const res = new MyArray();
+    for (let i = 0; i < this.length; i++) {
+      res.push(cb(this[i], i, this));
+    }
+    return res;
+  }
 }
 
 function MyArray() {
   this.length = 0;
-  if(this instanceof !MyArrayProto){
-    return;
-  }
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
   }
