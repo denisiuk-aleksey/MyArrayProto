@@ -16,12 +16,9 @@ function MyArrayProto() {
     return lastElem;
   };
 
-  this.unshift = function unshift() {
-    this.length = 0;
-    for (let i = 0; i < arguments.length; i++) {
-      this[this.length - this.length + 1] = arguments[i];
-      ++this.length;
-    }
+  this.unshift = function unshift(...args) {
+    this.reverse().push(...args);
+    this.reverse();
     return this.length;
   };
 
@@ -32,7 +29,7 @@ function MyArrayProto() {
     return firstElem;
   };
 
-  this.concat = function concat(secondArr) {
+  this.concat = function concat(secondArr) { // у вас точно такое же решение этого метода
     let newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
       newArray.push(this[i]);
@@ -44,12 +41,12 @@ function MyArrayProto() {
   };
 
   this.reverse = function reverse() {
-    let newArray = new MyArray();
+    let newArray = new MyArray(); 
     for (let i = 0; i < this.length; i++) {
       newArray.push(this[i]);
     }
     for (let i = 0; i < this.length; i++) {
-      this[i] = newArray.pop;
+      this[i] = newArray.pop();
     }
   };
 
@@ -80,9 +77,3 @@ MyArray.isMyArray = function (obj) {
 };
 
 MyArray.prototype = new MyArrayProto();
-
-let arr1 = [1, 2, 3];
-let arr2 = [4, 5, 6];
-
-console.log(arr1.concat(arr2));
-console.log(arr1.reverse());
